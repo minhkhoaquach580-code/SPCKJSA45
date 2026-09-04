@@ -28,7 +28,7 @@ document
             alert("Please fill in all fields.");
             return;
         }
-        alert("Sign in successful!");
+        window.location.href = "index.html";
     });
 document
     .getElementById("signUpForm")
@@ -57,7 +57,7 @@ document
             alert("Password must be at least 6 characters.");
             return;
         }
-        alert("Account created successfully!");
+        window.location.href = "index.html";
         showSignIn();
     });
 function socialLogin(provider) {
