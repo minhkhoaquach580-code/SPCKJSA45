@@ -184,10 +184,7 @@ function updateHero(movie) {
         heroPoster.src = IMAGE_URL + movie.poster_path;
     }
     if (movie.backdrop_path) {
-        document
-            .getElementById("hero")
-            .style.backgroundImage = 
-            `url("${BACKDROP_URL}${movie.backdrop_path}")`;
+        document.getElementById("hero").style.backgroundImage = `url("${BACKDROP_URL}${movie.backdrop_path}")`;
     }
     localStorage.setItem(
         STORAGE_KEYS.heroMovie,
@@ -213,10 +210,7 @@ function loadSavedHero() {
     }
 }
 async function searchMovies() {
-    const input = document
-        .getElementById("searchInput")
-        .value
-        .trim();
+    const input = document.getElementById("searchInput").value.trim();
     localStorage.setItem(
         STORAGE_KEYS.search,
         input
