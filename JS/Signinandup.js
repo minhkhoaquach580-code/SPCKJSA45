@@ -36,10 +36,8 @@ document
         event.preventDefault();
         const name = document.getElementById("signupName").value;
         const email = document.getElementById("signupEmail").value;
-        const password =
-            document.getElementById("signupPassword").value;
-        const confirmPassword =
-            document.getElementById("confirmPassword").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
         if (
             name === "" ||
             email === "" ||
@@ -57,8 +55,12 @@ document
             alert("Password must be at least 6 characters.");
             return;
         }
+        localStorage.setItem("loqo_profile", JSON.stringify({
+            name: name,
+            email: email,
+            avatar: ""
+        }));
         window.location.href = "index.html";
-        showSignIn();
     });
 function socialLogin(provider) {
     alert(provider + " login would be connected here.");

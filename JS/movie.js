@@ -137,29 +137,153 @@ function convertToAge(certification) {
     if (rating === "18") return "T18"
     return null
 }
-function setupVideo(id) {
-    videoSource.src = `movies/${id}.mp4`
-    movieVideo.load()
-    movieVideo.addEventListener("error", () => {
-        videoMessage.textContent =
-            "This movie video is not available yet."
+async function setupVideo(id) {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
+        )
+        if (!response.ok) {
+            throw new Error(`TMDB Error: ${response.status}`)
+        }
+        const data = await response.json()
+        const trailer = data.results.find(video =>
+            video.site === "YouTube" &&
+            video.type === "Trailer"
+        )
+        if (!trailer) {
+            videoMessage.textContent = "Trailer not available."
+            videoMessage.style.display = "block"
+            return
+        }
+        document.querySelector("iframe").src = `https://www.2embed.cc/embed/${trailer.key}`;
+        videoMessage.style.display = "none"
+    } catch (error) {
+        console.error("Video error:", error)
+        videoMessage.textContent = "Unable to load trailer."
         videoMessage.style.display = "block"
-    })
+    }
 }
 function watchMovie() {
-    const videoSection =
-        document.getElementById("videoSection")
-    videoSection.scrollIntoView({
-        behavior: "smooth"
+    document.getElementById("videoSection").scrollIntoView({
+        behavior:"smooth"
     })
-    setTimeout(() => {
-        movieVideo.play().catch(() => {})
-    }, 500)
+}
+function toggleFavorite(){
+    const saved = JSON.parse(localStorage.getItem("loqo_favorites")) || []
+    const movieIndex = saved.findIndex(movie => movie.id == movieId)
+    const button = document.getElementById("favoriteButton")
+    if(movieIndex === -1){
+        saved.push({
+            id: Number(movieId),
+            title: movieTitle.textContent,
+            poster_path: moviePoster.src.includes("image.tmdb.org")
+                ? new URL(moviePoster.src).pathname.replace("/t/p/w500","")
+                : null
+        })
+        localStorage.setItem("loqo_favorites", JSON.stringify(saved))
+        button.innerHTML = '<i class="fa-solid fa-heart"></i> Remove from Favorites'
+        button.classList.add("active")
+    }
+    else{
+        saved.splice(movieIndex,1)
+        localStorage.setItem("loqo_favorites", JSON.stringify(saved))
+        button.innerHTML = '<i class="fa-regular fa-heart"></i> Add to Favorites'
+        button.classList.remove("active")
+    }
+}
+function checkFavorite(){
+    const saved = JSON.parse(localStorage.getItem("loqo_favorites")) || []
+    const button = document.getElementById("favoriteButton")
+    if(saved.some(movie => movie.id == movieId)){
+        button.innerHTML = '<i class="fa-solid fa-heart"></i> Remove from Favorites'
+        button.classList.add("active")
+    }
 }
 function goHome() {
     window.location.href = "index.html"
 }
-function goToSignIn() {
+function goToSignOut() {
     window.location.href = "signinandup.html"
 }
+function getCommentsKey() {
+    return `loqo_comments_${movieId}`;
+}
+function loadComments() {
+    const commentsList = document.getElementById("commentsList");
+    if (!movieId) return;
+    const savedComments = localStorage.getItem(getCommentsKey());
+    const comments = savedComments ? JSON.parse(savedComments) : [];
+    commentsList.innerHTML = "";
+    if (comments.length === 0) {
+        commentsList.innerHTML = `
+            <div class="no-comments">
+                No comments yet. Be the first to comment!
+            </div>
+        `;
+        return;
+    }
+    comments.forEach((comment, index) => {
+        const commentElement = document.createElement("div");
+        commentElement.className = "comment";
+        commentElement.innerHTML = `
+            <div class="comment-header">
+                <span class="comment-name">${escapeHTML(comment.name)}</span>
+                <span class="comment-date">${escapeHTML(comment.date)}</span>
+            </div>
+            <div class="comment-text">
+                ${escapeHTML(comment.text)}
+            </div>
+            <button class="delete-comment" onclick="deleteComment(${index})">
+                <i class="fa-solid fa-trash"></i>
+                Delete
+            </button>
+        `;
+        commentsList.appendChild(commentElement);
+    });
+}
+function addComment(event) {
+    event.preventDefault();
+    const nameInput = document.getElementById("commentName");
+    const textInput = document.getElementById("commentText");
+    const name = nameInput.value.trim();
+    const text = textInput.value.trim();
+    if (name === "" || text === "") return;
+    const savedComments = localStorage.getItem(getCommentsKey());
+    const comments = savedComments ? JSON.parse(savedComments) : [];
+    comments.unshift({
+        name: name,
+        text: text,
+        date: new Date().toLocaleString()
+    });
+    localStorage.setItem(
+        getCommentsKey(),
+        JSON.stringify(comments)
+    );
+    nameInput.value = "";
+    textInput.value = "";
+    loadComments();
+}
+function deleteComment(index) {
+    const savedComments = localStorage.getItem(getCommentsKey());
+    if (!savedComments) return;
+    const comments = JSON.parse(savedComments);
+    comments.splice(index, 1);
+    localStorage.setItem(
+        getCommentsKey(),
+        JSON.stringify(comments)
+    );
+    loadComments();
+}
+function escapeHTML(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
 getMovie()
+checkFavorite()
+document.addEventListener("DOMContentLoaded", () => {
+    loadComments();
+    document
+        .getElementById("commentForm")
+        .addEventListener("submit", addComment);
+});

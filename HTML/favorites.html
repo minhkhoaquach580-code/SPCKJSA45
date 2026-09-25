@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites Movies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="/CSS/favorites.css">
+    <link rel="icon" href="/IMG/LOQO_logo.jpg" type="image/x-icon">
+</head>
+<body>
+<header class="header">
+    <div class="logo" onclick="goHome()">LOQO</div>
+    <nav class="navigation">
+        <a href="index.html#trending">Trending</a>
+        <a href="index.html#popular">Popular</a>
+        <a href="index.html#top-rated">Top Rated</a>
+        <a href="index.html#upcoming">Upcoming</a>
+        <a href="favorites.html">Favorites</a>
+    </nav>
+    <div class="header-icons">
+        <button class="icon-button" onclick="goHome()" title="Home">
+            <i class="fa-solid fa-house"></i>
+        </button>
+        <button class="icon-button" onclick="goToSignOut()" title="Sign Out">
+            <i class="fa-solid fa-right-to-bracket"></i>
+        </button>
+    </div>
+</header>
+<main>
+    <h1>My Favorite Movies</h1>
+    <div id="favoriteMovies" class="movie-grid"></div>
+</main>
+<script src="/JS/favorites.js"></script>
+</body>
+</html>

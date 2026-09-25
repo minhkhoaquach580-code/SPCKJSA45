@@ -1,0 +1,437 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background: #222;
+    color: #fff;
+    overflow-x: hidden;
+}
+.header {
+    height: 80px;
+    width: 100%;
+    background: #191919;
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 45px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo {
+    font-size: 38px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    color: #fff;
+    cursor: pointer;
+}
+.logo:hover {
+    color: #d9a900;
+}
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+.navigation a {
+    color: #eee;
+    text-decoration: none;
+    font-size: 17px;
+    transition: .2s;
+}
+.navigation a:hover {
+    color: #d9a900;
+}
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+.icon-button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+    transition: .2s;
+}
+.icon-button:hover,
+.icon-button.active {
+    color: #d9a900;
+}
+.profile-page {
+    min-height: calc(100vh - 155px);
+}
+.profile-header {
+    background: #191919;
+    padding: 70px 8%;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    border-bottom: 1px solid #333;
+}
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #292929;
+    border: 3px solid #d9a900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.profile-avatar i {
+    font-size: 65px;
+    color: #888;
+}
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.profile-main-info h1 {
+    font-size: 45px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+.profile-main-info p {
+    color: #999;
+    font-size: 17px;
+    margin-bottom: 22px;
+}
+.edit-button {
+    background: #d9a900;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 12px 22px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+.edit-button:hover {
+    background: #edba00;
+    transform: translateY(-2px);
+}
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 35px 8%;
+    background: #222;
+}
+.stat {
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.stat > i {
+    font-size: 30px;
+    color: #d9a900;
+}
+.stat div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.stat strong {
+    font-size: 25px;
+    font-weight: 400;
+}
+.stat span {
+    color: #888;
+    font-size: 14px;
+}
+.profile-section {
+    padding: 45px 8%;
+}
+.section-heading {
+    margin-bottom: 25px;
+}
+.section-heading h2 {
+    font-size: 30px;
+    font-weight: 400;
+}
+.section-heading i {
+    color: #d9a900;
+    margin-right: 10px;
+}
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+.movie-card {
+    background: #191919;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .2s;
+    border: 1px solid #333;
+}
+.movie-card:hover {
+    transform: translateY(-5px);
+    border-color: #d9a900;
+}
+.movie-card img {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+}
+.movie-info {
+    padding: 14px;
+}
+.movie-info h3 {
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.remove-favorite {
+    background: transparent;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 13px;
+}
+.remove-favorite:hover {
+    color: #d9a900;
+}
+.empty-message {
+    grid-column: 1 / -1;
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    color: #888;
+}
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.comment-card {
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+}
+.comment-card h3 {
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+.comment-card p {
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+.comment-card small {
+    color: #777;
+}
+.account-section {
+    padding: 20px 8% 60px;
+}
+.sign-out-button {
+    background: #292929;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 7px;
+    padding: 13px 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+.sign-out-button:hover {
+    background: #d9a900;
+    border-color: #d9a900;
+}
+.profile-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+.profile-modal.active {
+    display: flex;
+}
+.modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    background: #191919;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 35px;
+}
+.modal-content h2 {
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+.modal-content label {
+    display: block;
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.modal-content input {
+    width: 100%;
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 7px;
+    color: #fff;
+    padding: 13px;
+    outline: none;
+    margin-bottom: 20px;
+}
+.modal-content input:focus {
+    border-color: #d9a900;
+}
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 22px;
+    cursor: pointer;
+}
+.close-modal:hover {
+    color: #d9a900;
+}
+.save-button {
+    width: 100%;
+    background: #d9a900;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 13px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: .2s;
+}
+.save-button:hover {
+    background: #edba00;
+}
+.footer {
+    min-height: 75px;
+    background: #191919;
+    border-top: 1px solid #333;
+    padding: 0 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ccc;
+}
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+}
+.footer-social i {
+    cursor: pointer;
+    transition: .2s;
+}
+.footer-social i:hover {
+    color: #d9a900;
+}
+.profile-button {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 34px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+.profile-button:hover {
+    color: #d9a900;
+    transform: scale(1.08);
+}
+@media(max-width: 1100px) {
+    .movie-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media(max-width: 900px) {
+    .navigation {
+        display: none;
+    }
+    .header {
+        padding: 0 25px;
+    }
+    .profile-header {
+        padding: 50px 30px;
+    }
+    .profile-stats {
+        padding: 30px;
+    }
+    .profile-section {
+        padding: 40px 30px;
+    }
+    .movie-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .footer {
+        padding: 15px 25px;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+@media(max-width: 600px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-main-info h1 {
+        font-size: 35px;
+    }
+    .profile-stats {
+        grid-template-columns: 1fr;
+    }
+    .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media(max-width: 400px) {
+    .movie-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    .profile-section {
+        padding: 30px 20px;
+    }
+}

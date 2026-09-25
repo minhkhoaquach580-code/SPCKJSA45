@@ -220,7 +220,7 @@ async function searchMovies() {
         return;
     }
     try {
-        const movies = await fetchMovies( `/search/movie?query=${encodeURIComponent(input)}&language=en-US&page=1` );
+        const movies = await fetchMovies(`/search/movie?query=${encodeURIComponent(input)}&language=en-US&page=1` );
         displaySearchResults(movies);
     }
     catch (error) {
@@ -301,8 +301,15 @@ function movieInfo() {
     const selectedMovie = JSON.parse(movie);
     window.location.href = `movie.html?id=${selectedMovie.id}`;
 }
-function goToSignIn() {window.location.href = "signinandup.html";}
-function openChatbot() {alert("Chatbot opened!");}
+function goToSignOut() {window.location.href = "signinandup.html";}
+function openChatbot() {
+    const chatbotContainer = document.getElementById("chatbotContainer");
+    chatbotContainer.style.display = "block";
+}
+function closeChatbot() {
+    const chatbotContainer = document.getElementById("chatbotContainer");
+    chatbotContainer.style.display = "none";
+}
 async function initializePage() {
     console.log( "LOQO Cinema loading..." );
     await Promise.all([
@@ -320,5 +327,11 @@ async function initializePage() {
 }
 function goHome() {
     window.location.href = "index.html";
+}
+function goToProfile() {
+    window.location.href = "profile.html";
+}
+function goToSignOut() {
+    window.location.href = "signinandup.html";
 }
 document.addEventListener("DOMContentLoaded", initializePage);

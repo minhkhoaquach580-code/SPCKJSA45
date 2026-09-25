@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>LOQO Cinema</title>
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -12,7 +12,8 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="/CSS/index.css">
+    <link rel="icon" href="/IMG/LOQO_logo.jpg" type="image/x-icon">
 </head>
 <body>
     <header class="header">
@@ -32,6 +33,9 @@
             <a href="#upcoming">
                 Upcoming
             </a>
+            <a href="favorites.html">
+                Favorites
+            </a>
         </nav>
         <div class="header-icons">
             <button
@@ -43,10 +47,17 @@
             </button>
             <button
                 class="icon-button"
-                title="Sign In"
-                onclick="goToSignIn()"
+                title="Sign Out"
+                onclick="goToSignOut()"
             >
                 <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+            <button
+                class="profile-button"
+                title="Profile"
+                onclick="goToProfile()"
+            >
+                <i class="fa-solid fa-circle-user"></i>
             </button>
         </div>
     </header>
@@ -56,7 +67,7 @@
             id="searchInput"
             placeholder="Search for a movie..."
             onkeyup="searchMovies()"
-        >
+        > 
         <button onclick="closeSearch()">
             <i class="fa-solid fa-xmark"></i>
         </button>
@@ -197,13 +208,19 @@
             </div>
         </section>
     </main>
-    <button
-        class="chat-button"
-        onclick="openChatbot()"
-        title="Chatbot"
-    >
+    <button class="chat-button" onclick="openChatbot()" title="Chatbot">
         <i class="fa-solid fa-comment"></i>
     </button>
+    <div id="chatbotContainer">
+        <iframe
+            id="chatbot"
+            src="https://www.chatbase.co/chatbot-iframe/iOgBpJzl6MejAH9Eil-U6"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            allow="microphone">
+        </iframe>
+    </div>
     <footer class="footer">
         <p>
             Copyright © LOQO Cinema
@@ -215,6 +232,6 @@
             <i class="fa-brands fa-github"></i>
         </div>
     </footer>
-    <script src="index.js"></script>
+    <script src="/JS/index.js"></script>
 </body>
 </html>
